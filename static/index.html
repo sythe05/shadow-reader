@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>छाया पाठ — Shadow Reader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1 lang="hi">छाया पाठ</h1>
+      <p class="sub">Shadow reading for Hindi fluency. The model slows down only where you struggle.</p>
+    </div>
+    <div id="health" class="health" role="status" aria-live="polite"></div>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section class="panel" id="who">
+        <h2>Student</h2>
+        <form id="studentForm" class="row">
+          <label class="sr" for="studentName">Student name</label>
+          <input id="studentName" autocomplete="off" placeholder="Your name" required>
+          <button class="btn">Continue</button>
+        </form>
+        <p id="studentLine" class="muted" hidden></p>
+      </section>
+
+      <section class="panel" id="setup" hidden>
+        <h2>Passage</h2>
+        <div class="row wrap">
+          <label class="sr" for="passageSelect">Passage</label>
+          <select id="passageSelect"></select>
+          <button class="btn ghost" id="customToggle" type="button">Paste my own</button>
+        </div>
+        <textarea id="customText" rows="3" lang="hi" placeholder="यहाँ अपना पाठ लिखें (लगभग 40 शब्द तक)" hidden></textarea>
+        <div class="row">
+          <button class="btn" id="prepareBtn">Prepare lesson</button>
+          <span id="prepareStatus" class="muted" role="status"></span>
+        </div>
+      </section>
+
+      <section class="panel" id="stage" hidden>
+        <div class="stage-head">
+          <h2>Read along</h2>
+          <p class="muted" id="stageNote"></p>
+        </div>
+        <div id="passage" class="passage" lang="hi"></div>
+        <div class="row wrap">
+          <button class="btn" id="shadowBtn">Start shadow reading</button>
+          <button class="btn ghost" id="stopBtn" hidden>Stop and score</button>
+          <button class="btn ghost" id="listenBtn">Just listen</button>
+          <span id="stageStatus" class="muted" role="status"></span>
+        </div>
+        <p class="hint">Wear headphones. Without them the microphone records the model's voice too and your score will be inflated.</p>
+      </section>
+
+      <section class="panel" id="results" hidden>
+        <h2>Result</h2>
+        <div class="stats" id="stats"></div>
+        <p class="muted" id="heard"></p>
+        <div id="changes"></div>
+      </section>
+    </main>
+
+    <aside>
+      <section class="panel">
+        <h2>Phoneme graph</h2>
+        <p class="muted small">Struggles for this student. Words with a bar past the line are slowed down in the next lesson.</p>
+        <div id="graph" class="graph"></div>
+        <details class="seed">
+          <summary>Set a starting point</summary>
+          <p class="muted small">Useful when you already know the dialect-driven trouble spots.</p>
+          <div class="row wrap">
+            <label class="sr" for="seedPhoneme">Phoneme</label>
+            <select id="seedPhoneme"></select>
+            <label class="sr" for="seedRate">Error rate</label>
+            <input id="seedRate" type="range" min="0" max="1" step="0.05" value="0.9">
+            <output id="seedOut">0.90</output>
+          </div>
+          <div class="row wrap">
+            <button class="btn ghost" id="seedBtn" type="button">Save</button>
+            <button class="btn ghost" id="seedExampleBtn" type="button">Load क्ष and ड़ example</button>
+          </div>
+        </details>
+        <div id="sessions" class="sessions"></div>
+      </section>
+    </aside>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
